@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Himaja 🎂</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  user-select:none;
+}
+html,body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  font-family:'Segoe UI',sans-serif;
+}
+body{
+  background:linear-gradient(to bottom,#0a3d62,#1e90ff);
+  color:white;
+}
+
+/* OVERLAY (FIX FOR MUSIC) */
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: opacity 1s ease;
+}
+.start-btn {
+  padding: 15px 40px;
+  font-size: 1.5rem;
+  background: #0483f3;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(35, 111, 186, 0.5);
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* STARS */
+.star{
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:white;
+  border-radius:50%;
+  animation:twinkle 2s infinite;
+}
+@keyframes twinkle{
+  0%,100%{opacity:.3}
+  50%{opacity:1}
+}
+
+/* ❄️ SNOWFLAKES */
+.snow{
+  position:fixed;
+  top:-10px;
+  background:white;
+  border-radius:50%;
+  opacity:.8;
+  pointer-events:none;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(110vh);}
+}
+
+/* MAIN */
+.container{
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:45px;
+  text-align:center;
+  opacity: 0; /* Hidden until music starts */
+  transition: opacity 2s ease;
+}
+
+/* TITLE */
+.title{
+  font-size:clamp(2rem,5vw,3.2rem);
+  margin-top:-35px;
+  text-shadow:
+    0 0 10px #6ecbff,
+    0 0 25px #1e90ff,
+    0 0 50px #0abde3;
+  animation:glowPulse 2.5s infinite;
+}
+@keyframes glowPulse{
+  0%,100%{
+    text-shadow:
+      0 0 10px #6ecbff,
+      0 0 25px #1e90ff,
+      0 0 50px #0abde3;
+    transform:scale(1);
+  }
+  50%{
+    text-shadow:
+      0 0 20px #a5dcff,
+      0 0 45px #54a0ff,
+      0 0 80px #00d2ff;
+    transform:scale(1.08);
+  }
+}
+
+/* 🎂 CAKE */
+.cake{
+  position:relative;
+  width:200px;
+  height:165px;
+  animation:float 5s ease-in-out infinite;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-14px)}
+}
+
+/* CAKE LAYERS */
+.layer{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  border-radius:16px;
+  box-shadow:0 10px 25px rgba(0,0,0,.3);
+}
+.layer.bottom{
+  bottom:0;
+  width:200px;
+  height:52px;
+  background:linear-gradient(#ff6b81,#e84393);
+}
+.layer.middle{
+  bottom:48px;
+  width:160px;
+  height:48px;
+  background:linear-gradient(#feca57,#ff9f43);
+}
+.layer.top{
+  bottom:92px;
+  width:120px;
+  height:40px;
+  background:linear-gradient(#f5f6fa,#dcdde1);
+}
+
+/* TOP PLATE */
+.top-plate{
+  position:absolute;
+  bottom:118px;
+  left:50%;
+  transform:translateX(-50%);
+  width:120px;
+  height:16px;
+  background:#ffffff;
+  border-radius:50%;
+  box-shadow:0 5px 10px rgba(0,0,0,.2);
+}
+
+/* CANDLES */
+.candles{
+  position:absolute;
+  bottom:132px;
+  left:50%;
+  transform:translateX(-50%);
+  width:100px;
+  display:flex;
+  justify-content:space-between;
+}
+.candle{
+  width:9px;
+  height:28px;
+  background:linear-gradient(#ffd32a,#ff9f1a);
+  border-radius:4px;
+  position:relative;
+}
+
+/* FLAME */
+.flame{
+  position:absolute;
+  top:-16px;
+  left:50%;
+  transform:translateX(-50%);
+  width:12px;
+  height:20px;
+  background:radial-gradient(circle,#fff,#ff9f1a);
+  border-radius:50%;
+  box-shadow:0 0 18px gold;
+  animation:flicker .35s infinite alternate;
+}
+@keyframes flicker{
+  from{transform:translateX(-50%) scale(1)}
+  to{transform:translateX(-50%) scale(1.25)}
+}
+
+/* MESSAGE */
+.message-box{
+  max-width:90%;
+  padding:22px;
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(12px);
+  border-radius:18px;
+  box-shadow:0 0 25px rgba(255,255,255,.25);
+}
+.message{
+  font-size:clamp(1.05rem,3.5vw,1.35rem);
+}
+</style>
+</head>
+
+<body>
+
+<div id="overlay">
+  <button class="start-btn" onclick="startSurprise()">🎁 Tap to Open</button>
+</div>
+
+<audio id="bgMusic" loop>
+    <source src="happy_birthday.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container" id="mainContainer">
+  <div class="cake">
+    <div class="layer bottom"></div>
+    <div class="layer middle"></div>
+    <div class="layer top"></div>
+    <div class="top-plate"></div>
+    <div class="candles">
+      <div class="candle"><div class="flame"></div></div>
+      <div class="candle"><div class="flame"></div></div>
+      <div class="candle"><div class="flame"></div></div>
+    </div>
+  </div>
+
+  <div class="title"> Happy Birthday Himaja</div>
+
+  <div class="message-box">
+    <div class="message" id="typeText"></div>
+  </div>
+</div>
+
+<script>
+/* STARS */
+for(let i=0;i<80;i++){
+  const star=document.createElement("div");
+  star.className="star";
+  star.style.left=Math.random()*100+"vw";
+  star.style.top=Math.random()*40+"vh";
+  document.body.appendChild(star);
+}
+
+/* SNOW */
+for(let i=0;i<60;i++){
+  const snow=document.createElement("div");
+  snow.className="snow";
+  const size=Math.random()*4+2;
+  snow.style.width=size+"px";
+  snow.style.height=size+"px";
+  snow.style.left=Math.random()*100+"vw";
+  snow.style.animationDuration=(Math.random()*5+6)+"s";
+  snow.style.animationDelay=Math.random()*5+"s";
+  document.body.appendChild(snow);
+}
+
+/* ⌨️ TYPEWRITER EFFECT */
+const text = `Do you know why we didn’t meet in our first year of college?🎓
+Because God knows the perfect moment to bring two people together.✨
+God always sends the right person at the right time.
+Having you as my best friend is one of the greatest gifts life has given me.🎁💖
+Thank you for being my best friend.💞
+Once again Happy Birthday himajaaa.🎂🎉`;
+
+const target = document.getElementById("typeText");
+let index = 0;
+
+function typeEffect(){
+  if(index < text.length){
+    target.innerHTML += text[index] === "\n" ? "<br>" : text[index];
+    index++;
+    setTimeout(typeEffect, 40);
+  }
+}
+
+/* 🎁 START SURPRISE FUNCTION */
+function startSurprise() {
+  // 1. Play Music
+  const audio = document.getElementById('bgMusic');
+  audio.play().catch(e => alert("Please ensure 'happy_birthday.mp3' is in the folder!"));
+
+  // 2. Hide Overlay
+  document.getElementById('overlay').style.opacity = '0';
+  setTimeout(() => {
+    document.getElementById('overlay').style.display = 'none';
+  }, 1000);
+
+  // 3. Show Content & Start Text
+  document.getElementById('mainContainer').style.opacity = '1';
+  typeEffect();
+}
+</script>
+
+</body>
+</html>
