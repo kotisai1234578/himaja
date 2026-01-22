@@ -287,11 +287,12 @@ let index = 0;
 
 function typeEffect(){
   if(index < text.length){
-    target.innerHTML += text[index] === "\n" ? "<br>" : text[index];
+    target.innerHTML += text[index];
     index++;
     setTimeout(typeEffect, 40);
   }
 }
+
 
 /* 🎁 START SURPRISE FUNCTION */
 function startSurprise() {
@@ -314,3 +315,4 @@ function startSurprise() {
 </body>
 
 </html>
+
